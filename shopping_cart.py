@@ -24,7 +24,6 @@ while True:
           break
       else:        
          selected_ids.append(selected_id)
-
 print("---------------------------------")
 print("GREEN FOODS GROCERY")
 print("WWW.GREEN-FOODS-GROCERY.COM")
@@ -34,6 +33,11 @@ print("CHECKOUT AT: " + today.strftime("%Y-%m-%d %I:%M %p"))
 print("SELECTED PRODUCTS:")
 for selected_id in selected_ids:
       matching_products = [p for p in products if str(p["id"]) == str(selected_id)]
+      try:
+          matching_product = matching_products[0]
+      except IndexError as IndexError:
+          print("PLEASE USE VALID ID AND START OVER")
+          exit()
       matching_product = matching_products[0]
       total_price = total_price + matching_product["price"]
       print(f"... " + str(matching_product["name"]) + " " + str("(") + str(to_usd(matching_product["price"]) + str(")")))
