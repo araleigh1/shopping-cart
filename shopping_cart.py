@@ -26,12 +26,20 @@ products = [
 def to_usd(my_price):
         return f"${my_price:,.2f}" #> $12,000.71
 
+total_price = 0
 
-selected_id = input("Please input a product identifier: ")
-matching_products = [p for p in products if str(p["id"]) == str(selected_id)]
-matching_product = matching_products[0]
+while True:
+    selected_id = input("Please input a product identifier: ")
+    if selected_id == "DONE":
+        break
+    else:
+        matching_products = [p for p in products if str(p["id"]) == str(selected_id)]
+        matching_product = matching_products[0]
+        total_price = total_price + matching_product["price"]
+        print(f"SELECTED PRODUCT: " + str(matching_product["name"]) + " " + str(to_usd(matching_product["price"])))
 
-print("SELECTED PRODUCT: " + str(matching_product["name"]) + " " + str(matching_product["price"]))
+
+print(f"TOTAL PRICE: " + str(to_usd(total_price)))
 
 # Example Output
 #(shopping-env)  --->> python shopping_cart.py
