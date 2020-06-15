@@ -3,6 +3,11 @@
 import os
 import pandas as pd
 import datetime
+from dotenv import load_dotenv
+#from sendgrid import SendGridAPIClient
+#from sendgrid.helpers.mail import Mail
+
+load_dotenv()
 
 def to_usd(my_price):
         return f"${my_price:,.2f}" #> $12,000.71
@@ -36,14 +41,15 @@ for selected_id in selected_ids:
       try:
           matching_product = matching_products[0]
       except IndexError as IndexError:
-          print("PLEASE USE VALID ID AND START OVER")
+          print("OOPS! PLEASE USE VALID ID AND START OVER")
           exit()
       matching_product = matching_products[0]
       total_price = total_price + matching_product["price"]
       print(f"... " + str(matching_product["name"]) + " " + str("(") + str(to_usd(matching_product["price"]) + str(")")))
 print("---------------------------------")
 print(f"SUBTOTAL: " + str(to_usd(total_price)))
-tax = total_price * 0.0875
+tax_rate = float(os.environ.get("LOCAL_TAX_RATE"))
+tax = total_price * (tax_rate) 
 print("TAX: " + str(to_usd(tax)))
 print("TOTAL: " + str(to_usd(total_price + tax)))
 print("---------------------------------")
