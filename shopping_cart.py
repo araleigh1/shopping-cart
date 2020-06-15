@@ -41,7 +41,7 @@ for selected_id in selected_ids:
       try:
           matching_product = matching_products[0]
       except IndexError as IndexError:
-          print("OOPS! PLEASE USE VALID ID AND START OVER")
+          print("OOPS! ONE OR MORE OF YOUR IDS WERE INCORRECT. PLEASE START OVER AND USE A VALID ID")
           exit()
       matching_product = matching_products[0]
       total_price = total_price + matching_product["price"]
