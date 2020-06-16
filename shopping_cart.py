@@ -56,6 +56,49 @@ print("---------------------------------")
 print("THANKS, SEE YOU AGAIN SOON!")
 print("---------------------------------")
 
+#TXT_FILENAME = "receipts.txt"
+#txt_filepath = os.path.join("receipts",TXT_FILENAME)
+
+os.chdir("Receipts")
+with open(datetime.datetime.now().strftime("%Y-%m-%d-%H-%M-%S-%f") + ".txt", "w") as file: # "w" means "open the file for writing"
+    file.write("---------------------------------")
+    file.write("\n")
+    file.write("GREEN FOODS GROCERY")
+    file.write("\n")
+    file.write("WWW.GREEN-FOODS-GROCERY.COM")
+    file.write("\n")
+    file.write("---------------------------------")
+    file.write("\n")
+    file.write(f"CHECKOUT AT: " + today.strftime("%Y-%m-%d %I:%M %p"))
+    file.write("\n")
+    file.write("SELECTED PRODUCTS:")
+    file.write("\n")
+    for selected_id in selected_ids:
+      matching_products = [p for p in products if str(p["id"]) == str(selected_id)]
+      try:
+          matching_product = matching_products[0]
+      except IndexError as IndexError:
+          file.write("OOPS! ONE OR MORE OF YOUR IDS WERE INCORRECT. PLEASE START OVER AND USE A VALID ID")
+          exit()
+      matching_product = matching_products[0]
+      total_price = total_price + matching_product["price"]
+      file.write(f"\n" + "... " + str(matching_product["name"]) + " " + str("(") + str(to_usd(matching_product["price"]) + str(")")))
+    file.write("\n")
+    file.write("---------------------------------")
+    file.write("\n")
+    file.write(f"SUBTOTAL: " + str(to_usd(total_price)))
+    file.write("\n")
+    file.write("TAX: " + str(to_usd(tax)))
+    file.write("\n")
+    file.write("TOTAL: " + str(to_usd(total_price + tax)))
+    file.write("\n")
+    file.write("---------------------------------")
+    file.write("\n")
+    file.write("THANKS, SEE YOU AGAIN SOON!")
+    file.write("\n")
+    file.write("---------------------------------")
+
+
 # Example Output
 #(shopping-env)  --->> python shopping_cart.py
 #Please input a product identifier: 1
